@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+
+{% block title%}
+    <title>Your Orders</title>
+{%endblock%}
+
+{% block content%}
+    {%if order_list%}
+        <h1>Akds</h1>
+        {{order_list}}
+        {% for order in orders_list %}
+            {{ order}}
+            <br>
+        {%endfor%}
+    {%else%}
+        <h3>No Books To Show</h3>
+    {%endif%}
+
+{%endblock%}
