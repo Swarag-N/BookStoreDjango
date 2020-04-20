@@ -9,7 +9,7 @@ class Book(models.Model):
     available = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 ORDERSTATUS = [
     (0,'Created'),

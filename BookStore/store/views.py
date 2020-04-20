@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_list_or_404
+from django.shortcuts import render,redirect,get_list_or_404,get_object_or_404,reverse
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -8,7 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages import add_message, constants
 
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
+from django.views.generic.edit import DeleteView
 from django import forms
 from django.forms import ModelForm
 from .models import Book, Order
@@ -68,13 +69,21 @@ class ShowBooks(LoginRequiredMixin, ListView):
         order_form = OrderForm(data = request.POST,instance=temp_order)
         if order_form.is_valid():
             order_form.save(request.user)
-            add_message(request,constants.SUCCESS,"Succes")
-            return render(request,'base.html')
+            add_message(request,constants.SUCCESS,"Success")
+            return redirect(reverse('orders'))
         else:
             add_message(request,constants.WARNING,"there was an error")
             return render(request,'base.html')
         return render(request,'base.html')
 
+
+class DetailBookView(DetailView):
+    model = Book
+    template_name = 'store/bookDetailView.html'
+
+class DeleteOrderView(LoginRequiredMixin,DeleteView):
+    model=Order
+    success_url = '/orders'
 
 
 class OrderBooks(LoginRequiredMixin,ListView):
@@ -90,7 +99,11 @@ class OrderBooks(LoginRequiredMixin,ListView):
     def get_context_data(self):
         data = super().get_context_data()
         cd = data['order_list']
-        # data['books_list']
+        populated = dict()
+        for i in range(len(cd)): populated[i]=cd.values()[i]
+        books_data = [i.books.all().values() for i in cd]
+        for i in range(len(cd)): populated[i]['books']=books_data[i]
+        data['populated']=list(populated.values())
         return data
 
 
