@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_list_or_404,get_object_or_404,reverse
+from django.shortcuts import render,redirect,reverse
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
