@@ -37,22 +37,18 @@
           <p class="subtitle">
             {{ book.author_name }}
           </p>
-
-          <div class="modal">
-            <div class="modal-background">Hi</div>
-            <div class="modal-content">
-              <p class="image is-4by3">
-                <img :src="book.get_image" alt="" />
-              </p>
-            </div>
-            <button class="modal-close is-large" aria-label="close">
-              Hell
-            </button>
-          </div>
         </div>
-        <p class="card-footer-item">
-          <span class="has-text-grey"> Price {{ book.price }} </span>
-        </p>
+        <div class="card-footer">
+          <div class="card-footer-item">
+            <router-link v-bind:to="book.get_absolute_url">
+              <button class="button is-light">View Details</button></router-link
+            >
+          </div>
+
+          <p class="card-footer-item">
+            <span class="has-text-grey"> Price {{ book.price }} </span>
+          </p>
+        </div>
       </div>
     </div>
   </div>

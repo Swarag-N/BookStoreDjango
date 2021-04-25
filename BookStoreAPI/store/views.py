@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 # Create your views here.
 from rest_framework.views import APIView
@@ -13,3 +14,16 @@ class LatestBooksList(APIView):
         products = Book.objects.all()[0:4]
         serializer = BookSerializer(products, many=True)
         return Response(serializer.data)
+
+class BookDetail(APIView):
+    def get_object(self, genre_slug, book_slug):
+        try:
+            return Book.objects.filter(category__slug=genre_slug).get(slug=book_slug)
+        except Book.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, genre_slug, book_slug, format=None):
+        book = self.get_object(genre_slug, book_slug)
+        serializer = BookSerializer(book)
+        return Response(serializer.data)
+
