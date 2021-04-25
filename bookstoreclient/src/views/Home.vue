@@ -1,19 +1,97 @@
 <template>
   <div class="home">
-    HOME
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <section class="hero is-primary is-halfheight">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">Book Store</h1>
+          <h2 class="subtitle">Your Reading Journey Starts Here</h2>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h2 class="is-size-2 has-text-centered">Latest Books</h2>
+    </div>
+
+    <div
+      class="column is-multiline is-3"
+      v-for="book in latestBooks"
+      v-bind:key="book.id"
+    >
+      <div class="card">
+        <div class="card-image">
+          <figure class="image is-2by3">
+            <img
+              v-bind:src="book.get_thumbnail"
+              v-bind:alt="book.name"
+              srcset=""
+            />
+          </figure>
+        </div>
+        <div class="card-content">
+          <p class="tittle">
+            {{ book.name }}
+          </p>
+          <p class="subtitle">
+            {{ book.author_name }}
+          </p>
+
+          <div class="modal">
+            <div class="modal-background">Hi</div>
+            <div class="modal-content">
+              <p class="image is-4by3">
+                <img :src="book.get_image" alt="" />
+              </p>
+            </div>
+            <button class="modal-close is-large" aria-label="close">
+              Hell
+            </button>
+          </div>
+        </div>
+        <p class="card-footer-item">
+          <span class="has-text-grey"> Price {{ book.price }} </span>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
+
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 
+import axios from "axios";
+
 export default {
-  name: 'Home',
-  components: {
-    // HelloWorld
-  }
-}
+  name: "Home",
+  data() {
+    return {
+      latestBooks: [],
+    };
+  },
+  components: {},
+
+  mounted() {
+    this.getLatestBooks();
+    document.title = "Home | BookStore";
+  },
+
+  methods: {
+    async getLatestBooks() {
+      this.$store.commit("setIsLoading", true);
+      await axios
+        .get("/api/v1/store/latest-products/")
+        .then((response) => {
+          this.latestBooks = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.$store.commit("setIsLoading", false);
+    },
+  },
+};
 </script>

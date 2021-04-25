@@ -3,5 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import axios from 'axios'
 
-createApp(App).use(store).use(router).mount('#app')
+axios.defaults.baseURL = 'http://localhost:8000'
+
+createApp(App).use(store).use(router, axios).use(router).mount('#app')
