@@ -7,11 +7,13 @@
         </figure>
       </div>
 
-      <div class="column  is-offset-1">
+      <div class="column is-offset-1">
         <h1 class="title">{{ book.name }}</h1>
 
-        <p class="has-text-justified is-family-sans-serif">{{ book.description }}</p>
-        
+        <p class="has-text-justified is-family-sans-serif">
+          {{ book.description }}
+        </p>
+
         <h4 class="subtitle">Information</h4>
         <p><strong>Price: </strong>${{ book.price }}</p>
 
@@ -21,7 +23,9 @@
           </div>
 
           <div class="control">
-            <a class="button is-dark">Add to cart</a>
+            <a class="button is-dark" id="demoSparkles" @click="addToCart"
+              >Add to cart</a
+            >
           </div>
         </div>
       </div>
@@ -32,6 +36,9 @@
 
 <script>
 import axios from "axios";
+// TODO Fix Part-JS
+// import  party from "party-js";
+// const party = require('party-js');
 export default {
   name: "Book",
   data() {
@@ -53,11 +60,29 @@ export default {
         .get(`api/v1/store/${genere_slug}/${book_slug}/`)
         .then((response) => {
           this.book = response.data;
-          document.title = this.product.name + " | Djackets";
+          document.title = this.book.name + " | BookStore";
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    addToCart() {
+      // const element = document.getElementById("demoSparkles");
+
+      // party()
+      // confetti(element);
+
+      if (isNaN(this.quantity) || this.quantity < 1) {
+        this.quantity = 1;
+      }
+
+      const item = {
+        book: this.book,
+        quantity: this.quantity,
+      };
+
+      this.$store.commit("addToCart", item);
     },
   },
 };

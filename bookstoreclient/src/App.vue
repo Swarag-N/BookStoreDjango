@@ -20,22 +20,27 @@
         </a>
       </div>
 
-      <div id="navbar-menu" class="navbar-menu" v-bind:class="{'is-active':showMobileMenu}">
+      <div
+        id="navbar-menu"
+        class="navbar-menu"
+        v-bind:class="{ 'is-active': showMobileMenu }"
+      >
         <div class="navbar-end">
           <router-link to="/su" class="navbar-item">Asdasda</router-link>
           <router-link to="/su1" class="navbar-item">Eddsfd</router-link>
           <router-link to="/su3" class="navbar-item">Qsdff</router-link>
 
           <div class="navbar-item">
-            <router-link to="login" class="button is-success"
-              ><span> Login</span> <i class="fas fa-sign-in-alt"></i
-            ></router-link>
-          <!-- </div>
-          <div class="navbar-item"> -->
-            <router-link to="cart" class="button is-success"
-              ><span>Cart</span
-              ><span> <i class="fas fa-shopping-cart"></i></span
-            ></router-link>
+            <router-link to="login" class="button is-success">
+              <i class="fas fa-sign-in-alt"></i>
+              <span>   Login</span></router-link
+            >
+            </div>
+          <div class="navbar-item">
+            <router-link to="cart" class="button is-success">
+              <span> <i class="fas fa-shopping-cart"></i></span>
+              <span>Cart ({{ cartItemsCount }})</span>
+            </router-link>
           </div>
         </div>
       </div>
@@ -65,7 +70,21 @@ export default {
   data() {
     return {
       showMobileMenu: false,
+      cart: {
+        items: [],
+      },
     };
+  },
+  beforeCreate() {
+    this.$store.commit("initializeStore");
+  },
+  mounted(){
+    this.cart = this.$store.state.cart;
+  },
+  computed: {
+    cartItemsCount() {
+      return this.cart.items.length;
+    },
   },
 };
 </script>
