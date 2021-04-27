@@ -27,5 +27,5 @@ class GenreSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "get_absolute_url",
-            "products",
+            "books",
         )

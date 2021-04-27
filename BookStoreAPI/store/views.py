@@ -27,3 +27,15 @@ class BookDetail(APIView):
         serializer = BookSerializer(book)
         return Response(serializer.data)
 
+class GenreDetail(APIView):
+    def get_object(self, genre_slug):
+        try:
+            return Genre.objects.get(slug=genre_slug)
+        except Genre.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, genre_slug, format=None):
+        genre_instance = self.get_object(genre_slug)
+        serializer = GenreSerializer(genre_instance)
+        return Response(serializer.data)
+
