@@ -27,17 +27,22 @@
       >
         <div class="navbar-start">
           <div class="navbar-item">
-             <form method="get" action="/search">
+            <form method="get" action="/search">
               <div class="field has-addons">
                 <div class="control">
-                  <input type="text" class="input is-rounded" placeholder="What are you looking for?" name="query">
+                  <input
+                    type="text"
+                    class="input is-rounded"
+                    placeholder="What are you looking for?"
+                    name="query"
+                  />
                 </div>
 
                 <div class="control">
                   <button class="button is-success">
-                      <span class="icon">
+                    <span class="icon">
                       <i class="fas fa-search"></i>
-                      </span>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -47,18 +52,23 @@
         <div class="navbar-end p-1">
           <router-link to="/fiction" class="navbar-item">Fiction</router-link>
           <router-link to="/thriller" class="navbar-item">Thriller</router-link>
-          <!-- <router-link to="/su3" class="navbar-item">Qsdff</router-link> -->
 
-          <div class="navbar-item">
-            <router-link to="login" class="button is-success">
+          <div class="navbar-item" v-if="$store.state.isAuthenticated">
+            <router-link to="my-account" class="button is-light" >
+              <i class="fas fa-user-circle"></i>
+              <span class="m-2"> My Account</span></router-link
+            >
+          </div>
+          <div class="navbar-item" v-else>
+            <router-link to="log-in" class="button is-success">
               <i class="fas fa-sign-in-alt"></i>
-              <span> Login</span></router-link
+              <span class="m-2"> Login</span></router-link
             >
           </div>
           <div class="navbar-item">
             <router-link to="cart" class="button is-success">
-              <span> <i class="fas fa-shopping-cart"></i></span>
-              <span>Cart ({{ cartItemsCount }})</span>
+              <i class="fas fa-shopping-cart"></i>
+              <span class="m-2" >Cart ({{ cartItemsCount }})</span>
             </router-link>
           </div>
         </div>
@@ -89,6 +99,7 @@
 
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -100,6 +111,12 @@ export default {
   },
   beforeCreate() {
     this.$store.commit("initializeStore");
+    const token = this.$store.state.token;
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = "Token " + token;
+    } else {
+      axios.defaults.headers.common["Authorization"] = "";
+    }
   },
   mounted() {
     this.cart = this.$store.state.cart;

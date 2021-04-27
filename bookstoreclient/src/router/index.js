@@ -1,50 +1,81 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Book from '../views/Book.vue'
-import Genre from '../views/Genre.vue'
-import Search from '../views/Search.vue'
-import Cart from '../views/Cart.vue'
+import { createRouter, createWebHistory } from "vue-router";
+
+import store from '../store'
+
+import Home from "../views/Home.vue";
+import Book from "../views/Book.vue";
+import Genre from "../views/Genre.vue";
+import Search from "../views/Search.vue";
+import Cart from "../views/Cart.vue";
+import SignUp from "../views/SignUp.vue";
+import LogIn from "../views/LogIn.vue";
+import Account from "../views/Account.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: "/about",
+    name: "About",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: '/cart',
-    name: 'Cart',
-    component: Cart
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
   },
   {
-    path: '/search',
-    name: 'Search',
-    component: Search
+    path: "/search",
+    name: "Search",
+    component: Search,
   },
   {
-    path: '/:genere_slug',
-    name: 'Genres',
-    component: Genre
+    path: "/sign-up",
+    name: "SignUp",
+    component: SignUp,
   },
   {
-    path:'/:genere_slug/:book_slug',
-    name:'Book',
-    component:Book
-
-  }
-]
+    path: "/log-in",
+    name: "LogIn",
+    component: LogIn,
+  },
+  {
+    path: "/my-account",
+    name: "MyAccount",
+    component: Account,
+    meta: {
+      loginRequired: true,
+    },
+  },
+  {
+    path: "/:genere_slug",
+    name: "Genres",
+    component: Genre,
+  },
+  {
+    path: "/:genere_slug/:book_slug",
+    name: "Book",
+    component: Book,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.loginRequired) && !store.state.isAuthenticated) {
+    next({ name: 'LogIn', query: { to: to.path } });
+  } else {
+    next()
+  }
+})
+export default router;
