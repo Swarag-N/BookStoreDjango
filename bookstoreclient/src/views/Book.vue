@@ -23,7 +23,7 @@
           </div>
 
           <div class="control">
-            <a class="button is-dark" id="demoSparkles" @click="addToCart"
+            <a class="button is-dark" id="confetti" @click="addToCart"
               >Add to cart</a
             >
           </div>
@@ -36,9 +36,9 @@
 
 <script>
 import axios from "axios";
-// TODO Fix Part-JS
-// import  party from "party-js";
-// const party = require('party-js');
+import party from "party-js";
+import { toast } from "bulma-toast";
+
 export default {
   name: "Book",
   data() {
@@ -53,10 +53,13 @@ export default {
   },
 
   methods: {
-    getBookDetails() {
+    async getBookDetails() {
+      this.$store.commit("setLoading", true);
+
       const genere_slug = this.$route.params.genere_slug;
       const book_slug = this.$route.params.book_slug;
-      axios
+      
+      await axios
         .get(`api/v1/store/${genere_slug}/${book_slug}/`)
         .then((response) => {
           this.book = response.data;
@@ -65,13 +68,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      
+      this.$store.commit("setLoading", false);
     },
 
     addToCart() {
-      // const element = document.getElementById("demoSparkles");
-
-      // party()
-      // confetti(element);
+      const element = document.getElementById("confetti");
 
       if (isNaN(this.quantity) || this.quantity < 1) {
         this.quantity = 1;
@@ -82,7 +84,22 @@ export default {
         quantity: this.quantity,
       };
 
+      party.element(element, {
+        count: party.variation(50, 0.5),
+        angleSpan: party.minmax(60, 120),
+        shapes: ["star"],
+      });
+      
       this.$store.commit("addToCart", item);
+
+      toast({
+        message: "The Book was added to the cart",
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+        duration: 2000,
+        position: "bottom-right",
+      });
     },
   },
 };

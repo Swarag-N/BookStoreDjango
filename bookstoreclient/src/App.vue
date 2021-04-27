@@ -25,17 +25,17 @@
         class="navbar-menu"
         v-bind:class="{ 'is-active': showMobileMenu }"
       >
-        <div class="navbar-end">
-          <router-link to="/su" class="navbar-item">Asdasda</router-link>
-          <router-link to="/su1" class="navbar-item">Eddsfd</router-link>
-          <router-link to="/su3" class="navbar-item">Qsdff</router-link>
+        <div class="navbar-end p-1">
+          <router-link to="/fiction" class="navbar-item">Fiction</router-link>
+          <router-link to="/thriller" class="navbar-item">Thriller</router-link>
+          <!-- <router-link to="/su3" class="navbar-item">Qsdff</router-link> -->
 
           <div class="navbar-item">
             <router-link to="login" class="button is-success">
               <i class="fas fa-sign-in-alt"></i>
-              <span>   Login</span></router-link
+              <span> Login</span></router-link
             >
-            </div>
+          </div>
           <div class="navbar-item">
             <router-link to="cart" class="button is-success">
               <span> <i class="fas fa-shopping-cart"></i></span>
@@ -45,6 +45,13 @@
         </div>
       </div>
     </nav>
+
+    <div
+      class="is-loading-bar has-text-centered"
+      v-bind:class="{ 'is-loading': $store.state.isLoading }"
+    >
+      <div class="lds-dual-ring"></div>
+    </div>
 
     <section class="section">
       <router-view />
@@ -61,9 +68,6 @@
   </div>
 </template>
 
-<style lang="scss">
-@import "../node_modules/bulma";
-</style>
 
 <script>
 export default {
@@ -78,7 +82,7 @@ export default {
   beforeCreate() {
     this.$store.commit("initializeStore");
   },
-  mounted(){
+  mounted() {
     this.cart = this.$store.state.cart;
   },
   computed: {
@@ -88,3 +92,41 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+@import "../node_modules/bulma";
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #ccc;
+  border-color: #ccc transparent #ccc transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.is-loading-bar {
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  &.is-loading {
+    height: 80px;
+  }
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <section class="hero is-primary is-halfheight">
+    <section class="hero is-dark is-halfheight">
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">Book Store</h1>
@@ -9,13 +9,14 @@
       </div>
     </section>
   </div>
-
+  <br />
   <div class="columns is-multiline">
     <div class="column is-12">
-      <h2 class="is-size-2 has-text-centered">Latest Books</h2>
+      <h3 class="is-size-3 has-text-centered">Latest Books</h3>
     </div>
+    <BookCards v-for="book in latestBooks" v-bind:key="book.id"   v-bind:book="book" />
 
-    <div
+    <!-- <div
       class="column is-multiline is-3"
       v-for="book in latestBooks"
       v-bind:key="book.id"
@@ -50,7 +51,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -58,7 +59,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-
+import BookCards from "@/components/BookCards.vue";
 import axios from "axios";
 
 export default {
@@ -68,8 +69,9 @@ export default {
       latestBooks: [],
     };
   },
-  components: {},
-
+  components: {
+    BookCards,
+  },
   mounted() {
     this.getLatestBooks();
     document.title = "Home | BookStore";
@@ -77,7 +79,7 @@ export default {
 
   methods: {
     async getLatestBooks() {
-      this.$store.commit("setIsLoading", true);
+      this.$store.commit("setLoading", true);
       await axios
         .get("/api/v1/store/latest-products/")
         .then((response) => {
@@ -86,7 +88,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-      this.$store.commit("setIsLoading", false);
+      this.$store.commit("setLoading", false);
     },
   },
 };

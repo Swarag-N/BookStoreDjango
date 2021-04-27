@@ -18,19 +18,22 @@ export default createStore({
       }
     },
     addToCart(state, item) {
-      
-      const exists = state.cart.items.filter((i) => (i.book.id === item.book.id));
+      const exists = state.cart.items.filter((i) => i.book.id === item.book.id);
 
       if (exists.length) {
-        exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity);
-        console.log(item,exists)
-      }else{
-        // 
-        console.table("First Time Adding")
-        state.cart.items.push(item)
+        exists[0].quantity =
+          parseInt(exists[0].quantity) + parseInt(item.quantity);
+      } else {
+        //
+        console.table("First Time Adding");
+        state.cart.items.push(item);
       }
 
       localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+
+    setLoading(state, status) {
+      state.isLoading = status;
     },
   },
   actions: {},
