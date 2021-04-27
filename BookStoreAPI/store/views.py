@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 
 from .models import Genre, Book
 from .serializers import GenreSerializer, BookSerializer
+from django.db.models import Q
 
 class LatestBooksList(APIView):
     def get(self, request, format=None):
@@ -39,3 +40,13 @@ class GenreDetail(APIView):
         serializer = GenreSerializer(genre_instance)
         return Response(serializer.data)
 
+@api_view(['POST'])
+def search(request):
+    query = request.data.get('query', '')
+
+    if query:
+        books = Book.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        serializer = BookSerializer(books, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({"books": []})

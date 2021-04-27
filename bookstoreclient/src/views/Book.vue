@@ -23,9 +23,9 @@
           </div>
 
           <div class="control">
-            <a class="button is-dark" id="confetti" @click="addToCart"
-              >Add to cart</a
-            >
+            <a class="button is-dark p-3" id="confetti" @click="addToCart"
+              ><span class="m-1"> Add to Cart</span> <i class="fas fa-cart-plus"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default {
 
       const genere_slug = this.$route.params.genere_slug;
       const book_slug = this.$route.params.book_slug;
-      
+
       await axios
         .get(`api/v1/store/${genere_slug}/${book_slug}/`)
         .then((response) => {
@@ -68,7 +68,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-      
+
       this.$store.commit("setLoading", false);
     },
 
@@ -89,7 +89,7 @@ export default {
         angleSpan: party.minmax(60, 120),
         shapes: ["star"],
       });
-      
+
       this.$store.commit("addToCart", item);
 
       toast({

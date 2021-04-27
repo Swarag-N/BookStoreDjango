@@ -37,7 +37,7 @@ export default {
   watch: {
     // eslint-disable-next-line no-unused-vars
     $route(to, from) {
-      if (to.name === "Category") {
+      if (to.name === "Genres") {
         this.getGenreDetails();
       }
     },
