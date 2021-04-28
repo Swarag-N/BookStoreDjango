@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/BookStoreDjango/precache-manifest.23c7cce0e79a26c72c439d3c97c58968.js"
+  "/BookStoreDjango/precache-manifest.2ba51481e7af9dbf984f0ab4a67b1c39.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "bookstoreclient"});
