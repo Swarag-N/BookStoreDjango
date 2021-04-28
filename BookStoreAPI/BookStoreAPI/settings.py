@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +30,8 @@ SECRET_KEY = 'django-insecure-$#f0-4g!9$cij4%4_-y#^%umbd-)x3&e$!vmu0xaeu_e=z1zd%
 DEBUG = True
 
 ALLOWED_HOSTS = []
+STRIPE_SECRET_KEY = env("STRIPE_SK")
+
 
 
 # Application definition
@@ -44,6 +50,7 @@ INSTALLED_APPS = [
     'djoser',
 
     'store',
+    'order',
 ]
 
 CORS_ALLOWED_ORIGINS = [

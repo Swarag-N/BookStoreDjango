@@ -10,6 +10,8 @@ import Cart from "../views/Cart.vue";
 import SignUp from "../views/SignUp.vue";
 import LogIn from "../views/LogIn.vue";
 import Account from "../views/Account.vue";
+import CheckOut from "../views/CheckOut.vue";
+import Success from "../views/Success.vue";
 
 const routes = [
   {
@@ -53,6 +55,19 @@ const routes = [
     meta: {
       loginRequired: true,
     },
+  },
+  {
+    path: "/cart/checkout",
+    name: "CheckOut",
+    component: CheckOut,
+    meta: {
+      loginRequired: true,
+    },
+  },
+  {
+    path: "/cart/success",
+    name: "Success",
+    component: Success,
   },
   {
     path: "/:genere_slug",

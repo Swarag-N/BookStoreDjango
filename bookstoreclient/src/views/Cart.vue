@@ -71,7 +71,9 @@ export default {
   },
   computed: {
     cartTotalLength() {
-      return this.cart.items.length;
+      return this.cart.items.reduce((acc, curVal) => {
+        return (acc += curVal.quantity);
+      }, 0);
     },
     cartTotalPrice() {
       return this.cart.items.reduce((acc, curVal) => {
