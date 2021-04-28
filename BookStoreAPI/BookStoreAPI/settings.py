@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import environ
+import dj_database_url
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
@@ -32,6 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["django-book-store-vue.herokuapp.com",
                  "127.0.0.1", 'localhost']
 STRIPE_SECRET_KEY = env("STRIPE_SK")
+DATABASE_URL = env("DATABASE_URL")
 
 
 # Application definition
@@ -56,7 +58,7 @@ INSTALLED_APPS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
     'http://127.0.0.1:8080',
-    'swarag-n.github.io'
+    'https://swarag-n.github.io'
 ]
 
 MIDDLEWARE = [
@@ -101,6 +103,7 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
