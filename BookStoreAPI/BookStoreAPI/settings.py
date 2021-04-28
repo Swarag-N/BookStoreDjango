@@ -29,9 +29,9 @@ SECRET_KEY = 'django-insecure-$#f0-4g!9$cij4%4_-y#^%umbd-)x3&e$!vmu0xaeu_e=z1zd%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["django-book-store-vue.herokuapp.com",
+                 "127.0.0.1", 'localhost']
 STRIPE_SECRET_KEY = env("STRIPE_SK")
-
 
 
 # Application definition
@@ -54,9 +54,9 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
     'http://localhost:8080',
     'http://127.0.0.1:8080',
+    'swarag-n.github.io'
 ]
 
 MIDDLEWARE = [
