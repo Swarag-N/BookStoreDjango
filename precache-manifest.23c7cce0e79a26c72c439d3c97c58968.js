@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4c94ec471b99f8904b54",
+    "revision": "90e7177c571ffecc9b10",
     "url": "/BookStoreDjango/css/app.384c7bf4.css"
   },
   {
-    "revision": "1ba310c44d69c096eca2c41a66a98be0",
+    "revision": "491616c05ac154c0f0aa3a55340ab24b",
     "url": "/BookStoreDjango/index.html"
   },
   {
-    "revision": "f0c5ca4d090d601f095e",
-    "url": "/BookStoreDjango/js/about.3fc2e6af.js"
+    "revision": "0f090899272c126b4251",
+    "url": "/BookStoreDjango/js/about.e1122beb.js"
   },
   {
-    "revision": "4c94ec471b99f8904b54",
-    "url": "/BookStoreDjango/js/app.3919d632.js"
+    "revision": "90e7177c571ffecc9b10",
+    "url": "/BookStoreDjango/js/app.2d925088.js"
   },
   {
     "revision": "bb093ca5cb20ec00a8a2",
