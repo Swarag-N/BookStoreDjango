@@ -48,5 +48,4 @@ def search(request):
         books = Book.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
-    else:
-        return Response({"books": []})
+    return Response({"books": []})
