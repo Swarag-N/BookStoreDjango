@@ -12,6 +12,7 @@ import LogIn from "../views/LogIn.vue";
 import Account from "../views/Account.vue";
 import CheckOut from "../views/CheckOut.vue";
 import Success from "../views/Success.vue";
+import NotFound from "../views/NotFound.vue";
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: "/:genere_slug/:book_slug",
     name: "Book",
     component: Book,
+  },
+  {
+    path: "/404",
+    name: "404 - NotFound",
+    component: NotFound,
   },
 ];
 

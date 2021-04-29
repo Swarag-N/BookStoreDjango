@@ -56,6 +56,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+           this.$router.push("/404");
           toast({
             message: "Something went wrong. Please try again.",
             type: "is-danger",

@@ -24,7 +24,8 @@
 
           <div class="control">
             <a class="button is-dark p-3" id="confetti" @click="addToCart"
-              ><span class="m-1"> Add to Cart</span> <i class="fas fa-cart-plus"></i
+              ><span class="m-1"> Add to Cart</span>
+              <i class="fas fa-cart-plus"></i
             ></a>
           </div>
         </div>
@@ -67,6 +68,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.$router.push("/");
         });
 
       this.$store.commit("setLoading", false);

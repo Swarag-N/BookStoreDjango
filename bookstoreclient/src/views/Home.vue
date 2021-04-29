@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <section class="hero is-dark is-halfheight">
+    <section class="hero is-halfheight" style="background: rgb(34,193,195);
+background: radial-gradient(circle, rgba(34,193,195,1) 0%, rgba(45,253,166,0.9867297260701156) 100%);">
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">Book Store</h1>

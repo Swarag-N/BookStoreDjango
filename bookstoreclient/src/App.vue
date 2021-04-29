@@ -1,8 +1,8 @@
 <template>
   <div class="wraperconatiner">
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <router-link to="/" class="navbar-item">
+      <div class="navbar-brand m-2">
+        <router-link to="/" exact class="navbar-item">
           <strong>Book Store</strong>
         </router-link>
 
@@ -50,25 +50,25 @@
           </div>
         </div>
         <div class="navbar-end p-1">
-          <router-link to="/fiction" class="navbar-item">Fiction</router-link>
-          <router-link to="/thriller" class="navbar-item">Thriller</router-link>
+          <router-link to="/fiction"   class="navbar-item"  exact-path>Fiction</router-link>
+          <router-link to="/thriller"  class="navbar-item"  exact-path>Thriller</router-link>
 
           <div class="navbar-item" v-if="$store.state.isAuthenticated">
-            <router-link to="my-account" class="button is-light" >
+            <router-link to="my-account"  class="button is-light"  exact-path>
               <i class="fas fa-user-circle"></i>
               <span class="m-2"> My Account</span></router-link
             >
           </div>
           <div class="navbar-item" v-else>
-            <router-link to="log-in" class="button is-success">
+            <router-link to="log-in"  exact-path class="button is-success">
               <i class="fas fa-sign-in-alt"></i>
               <span class="m-2"> Login</span></router-link
             >
           </div>
           <div class="navbar-item">
-            <router-link to="cart" class="button is-success">
+            <router-link to="cart" class="button is-success" exact-path>
               <i class="fas fa-shopping-cart"></i>
-              <span class="m-2" >Cart ({{ cartItemsCount }})</span>
+              <span class="m-2">Cart ({{ cartItemsCount }})</span>
             </router-link>
           </div>
         </div>
@@ -99,7 +99,7 @@
 
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data() {
     return {
@@ -131,6 +131,7 @@ export default {
 
 <style lang="scss">
 @import "../node_modules/bulma";
+
 
 .lds-dual-ring {
   display: inline-block;
